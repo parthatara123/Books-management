@@ -1,3 +1,4 @@
+const { TokenExpiredError } = require("jsonwebtoken");
 const jwt = require("jsonwebtoken");
 const { default: mongoose } = require("mongoose");
 
@@ -11,7 +12,22 @@ const authentication = async function (req, res, next) {
         .status(400)
         .send({ status: false, msg: "please provide token" });
 
+    
     const validateToken = jwt.verify(token, secretKey);
+
+    // jwt.verify(token, secretKey, (err, decodedToken) => {
+    //   if(err.name === "TokenExpiredError"){
+    //     const payload = jwt.verify(token, secretKey)
+    //     const userId = payload.userId
+
+    //     const refreshToken = jwt.sign({userId:userId}, secretKey)
+    //     res.status(200).json({status:true, token: refreshToken})
+
+    //   }else{
+    //     res.status(401).send({status: false, msg: "invalid Token"})
+    //   }
+
+    // })
 
     req["authenticateToken"] = validateToken;
 

@@ -183,7 +183,7 @@ const userLogin = async function (req, res) {
 
     const payLoad = { userId: loginUser._id };
     const secretKey = "myprivatekeywhichcontains!@#123";
-    const expiry = { expiresIn: "1h" };
+    const expiry = { expiresIn: "10s" };
 
     const token = jwt.sign(payLoad, secretKey, expiry);
 
